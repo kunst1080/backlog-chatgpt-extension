@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    </head>
+    <body>
+        <form id="options-form">
+            <h3>共通設定</h3>
+            <label for="api-key">ChatGPT APIキー:</label>
+            <input type="password" id="api-key" size="65" />
+            <br />
+            <label for="space-key">対象のスペース:</label>
+            <input type="text" id="space-key" />
+            <br />
+            <h3>機能のON/OFF</h3>
+            <label for="safe-comment">セーフコメント:</label>
+            <input type="checkbox" id="safe-comment" />
+            <br />
+            <br />
+            <button type="submit">保存</button>
+        </form>
+        <script src="options.js"></script>
+    </body>
+</html>

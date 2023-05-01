@@ -6,6 +6,7 @@ module.exports = {
   },
   entry: {
     background: "./src/background.ts",
+    options: "./src/options.ts",
     main: "./src/main.tsx",
   },
   module: {
@@ -26,6 +27,10 @@ module.exports = {
         {
           from: "./src/style.css",
           to: "style.css",
+        },
+        {
+          from: "./src/options.html",
+          to: "options.html",
         },
       ],
     }),
