@@ -1,0 +1,10 @@
+#emotion-component {
+    width: 60px;
+    border-radius: 2px;
+    background-color: #cef4a3;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#emotion-component + .comment-editor__control-area-right {
+    padding-left: 0;
+}
