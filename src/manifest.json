@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Backlog ChatGPT Extension",
+  "version": "0.0.1",
+  "description": "ChatGPTを使ってBacklogを使いやすくします",
+  "action": {
+    "default_title": "Backlog chatGPT Extension"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.backlog.jp/*", "https://*.backlog.com/*"],
+      "js": ["main.js"],
+      "css": ["style.css"]
+    }
+  ],
+  "permissions": ["storage"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
