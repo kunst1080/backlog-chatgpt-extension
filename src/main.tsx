@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import PageEvent from "./PageEvent";
+import DomEvent from "./DomEvent";
 import { EmotionComponent } from "./component/EmotionComponent";
 import Config from "./Config";
 
@@ -29,7 +29,7 @@ const main = async () => {
         const manifest = chrome.runtime.getManifest();
         console.log(`${manifest.name} ${manifest.version} is enabled.`);
     }
-    const ev = new PageEvent(document.getElementById("root") as HTMLElement);
+    const ev = new DomEvent(document.getElementById("root") as HTMLElement);
     if (config.enableSafeComment) {
         ev.registerListener("leftCommentContent", () => {
             addReactDom(

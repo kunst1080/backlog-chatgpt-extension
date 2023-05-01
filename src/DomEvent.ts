@@ -1,4 +1,4 @@
-class PageEvent {
+class DomEvent {
   private observer: MutationObserver;
   private listeners: { [key: string]: (() => void)[] } = {};
 
@@ -38,4 +38,4 @@ class PageEvent {
   }
 }
 
-export default PageEvent;
+export default DomEvent;
