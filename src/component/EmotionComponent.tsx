@@ -48,21 +48,30 @@ const loadEmotion = async (): Promise<Emotion> => {
 };
 
 const updateSubmitButton = (e: Emotion) => {
-    const button = document.querySelector(
-        "#switchStatusAddCommentForm button[type=submit]"
-    ) as HTMLInputElement;
-    if (!button) {
+    const buttons = document.querySelectorAll(
+        ".comment-editor button[type=submit]"
+    );
+    if (!buttons) {
         return;
     }
     if (e.anger > 5 || e.sadness > 5) {
-        button.textContent = "怒り・悲しみを抑えてコメントする";
-        button.disabled = true;
+        buttons.forEach((b) => {
+            const button = b as HTMLInputElement;
+            button.textContent = "怒り・悲しみを抑えてコメントする";
+            button.disabled = true;
+        });
     } else if (e.joy < 2 && e.pleasure < 2) {
-        button.textContent = "喜び・楽しみを増やしてコメントする";
-        button.disabled = true;
+        buttons.forEach((b) => {
+            const button = b as HTMLInputElement;
+            button.textContent = "喜び・楽しみを増やしてコメントする";
+            button.disabled = true;
+        });
     } else {
-        button.textContent = "登録";
-        button.disabled = false;
+        buttons.forEach((b) => {
+            const button = b as HTMLInputElement;
+            button.textContent = "登録";
+            button.disabled = false;
+        });
     }
 };
 
