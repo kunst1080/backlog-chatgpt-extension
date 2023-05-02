@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import DomEvent from "./DomEvent";
 import { SafeCommentComponent } from "./component/SafeCommentComponent";
 import Config from "./Config";
+import { IssueSummaryComponent } from "./component/IssueSummaryComponent";
 
 const addReactDom = (
     nodeAppender: (node: Node) => void,
@@ -43,6 +44,23 @@ const main = async () => {
                 <SafeCommentComponent />
             );
         });
+    }
+    if (config.enableIssueSummary) {
+        if (
+            location.pathname.startsWith("/view/") &&
+            location.pathname.endsWith("/edit")
+        ) {
+            ev.registerListener("#descriptionTextArea", () => {
+                addReactDom(
+                    (e) =>
+                        document
+                            .querySelector(".ticket__properties-value")
+                            ?.after(e),
+                    "issue-summary-component",
+                    <IssueSummaryComponent />
+                );
+            });
+        }
     }
 };
 

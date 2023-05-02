@@ -26,3 +26,12 @@
 .button--primary[disabled] {
     color: #000;
 }
+
+#issue-summary-component {
+    position: relative;
+    max-width: 300px;
+    background-color: #ede2ff;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
