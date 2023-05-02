@@ -1,2 +1,9 @@
 # backlog-chatgpt-extension
-BacklogとChatGPTを連携するChrome拡張
+
+Backlog と ChatGPT を連携する Chrome 拡張
+
+## How to build
+
+```
+yarn build
+```
