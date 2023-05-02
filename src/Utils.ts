@@ -6,6 +6,7 @@ export const callOpenAIRequest = (
   maxTokens: number,
   temperature: number
 ): Promise<OpenAIResponse> => {
+  console.log(`callOpenAIRequest: ${prompt}`);
   return new Promise((resolve) => {
     chrome.runtime.sendMessage(
       {
@@ -15,6 +16,7 @@ export const callOpenAIRequest = (
         temperature: temperature,
       },
       (response: OpenAIResponse) => {
+        console.log(`OpenAIResponse: ${response.body}`);
         resolve(response);
       }
     );
@@ -30,7 +32,7 @@ export const loadData = async <T>(
   expireMillis: number,
   loadFunction: () => Promise<T>
 ): Promise<T> => {
-  const c = await chrome.storage.local.get(key).then((c) => c[key]);
+  const c = await chrome.storage.local.get(key)?.then((c) => c[key]);
   if (c && c.expire > Date.now()) {
     console.debug(`use cache: ${key}`);
     return c.data as T;

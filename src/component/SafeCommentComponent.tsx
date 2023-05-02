@@ -3,7 +3,6 @@ import { calculateMD5, callOpenAIRequest, loadData } from "../Utils";
 import DomEvent from "../DomEvent";
 
 const CACHE_EXPIRE_MILLIS = 1000 * 60 * 60 * 24 * 7; // 1 week
-const REQUEST_INTERVAL = 10000;
 
 type Emotion = {
     joy: number;
@@ -37,6 +36,9 @@ const loadEmotion = async (): Promise<Emotion> => {
         CACHE_EXPIRE_MILLIS,
         () => callOpenAIRequest(prompt, 8, 0)
     );
+    if (!response) {
+        return INITIAL_EMOTION;
+    }
     const obj = JSON.parse(response.body);
     const arr = obj.choices[0].text.trim().split(",");
     return {
@@ -89,7 +91,7 @@ const getClassName = (emotion: Emotion): string => {
     if (emotion.anger > 5 || emotion.sadness > 5) {
         return "emotion-danger";
     }
-    if (emotion.joy < 5 || emotion.pleasure < 5) {
+    if (emotion.joy < 5 && emotion.pleasure < 5) {
         return "emotion-warning";
     }
     return "emotion-safe";

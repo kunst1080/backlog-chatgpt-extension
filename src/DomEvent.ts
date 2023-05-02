@@ -19,9 +19,7 @@ class DomEvent {
         mutation.addedNodes.length > 0 &&
         mutation.removedNodes.length == 0
       ) {
-        if (!mutation.target.className.includes("select2")) {
-          console.debug(mutation);
-        }
+        console.debug(mutation);
         this.notifyListeners(mutation.target.id, mutation.target.className);
       }
     }
