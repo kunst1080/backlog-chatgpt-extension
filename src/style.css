@@ -1,10 +1,28 @@
 #emotion-component {
-    width: 60px;
+    position: relative;
+    width: 70px;
     border-radius: 2px;
-    background-color: #cef4a3;
     margin-left: 10px;
     margin-right: 10px;
 }
 #emotion-component + .comment-editor__control-area-right {
     padding-left: 0;
+}
+.emotion-area {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+}
+.emotion-safe {
+    background-color: #cef4a3;
+}
+.emotion-danger {
+    background-color: #f4a3a3;
+}
+.emotion-warning {
+    background-color: #f4eaa3;
+}
+.button--primary[disabled] {
+    color: #000;
 }
