@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import DomEvent from "./DomEvent";
-import { EmotionComponent } from "./component/EmotionComponent";
+import { SafeCommentComponent } from "./component/SafeCommentComponent";
 import Config from "./Config";
 
 const addReactDom = (
@@ -39,8 +39,8 @@ const main = async () => {
                             "#expnadableArea .comment-editor__control-area-left"
                         )
                         ?.after(e),
-                "emotion-component",
-                <EmotionComponent />
+                "safe-comment-component",
+                <SafeCommentComponent />
             );
         });
     }

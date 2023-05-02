@@ -1,11 +1,11 @@
-#emotion-component {
+#safe-comment-component {
     position: relative;
-    width: 70px;
+    width: 80px;
     border-radius: 2px;
     margin-left: 10px;
     margin-right: 10px;
 }
-#emotion-component + .comment-editor__control-area-right {
+#safe-comment-component + .comment-editor__control-area-right {
     padding-left: 0;
 }
 .emotion-area {

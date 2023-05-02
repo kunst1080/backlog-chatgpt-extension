@@ -39,7 +39,6 @@ const loadEmotion = async (): Promise<Emotion> => {
     );
     const obj = JSON.parse(response.body);
     const arr = obj.choices[0].text.trim().split(",");
-    console.log(obj.choices[0].text.trim());
     return {
         joy: arr[0] ? parseInt(arr[0]) : 0,
         anger: arr[1] ? parseInt(arr[1]) : 0,
@@ -95,7 +94,7 @@ const getClassName = (emotion: Emotion): string => {
     }
     return "emotion-safe";
 };
-export const EmotionComponent = () => {
+export const SafeCommentComponent = () => {
     const [emotion, setEmotion] = React.useState<Emotion>(INITIAL_EMOTION);
     React.useEffect(() => {
         // 初期表示
