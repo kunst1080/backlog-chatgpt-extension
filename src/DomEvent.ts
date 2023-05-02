@@ -16,15 +16,20 @@ class DomEvent {
       if (
         mutation.type == "childList" &&
         mutation.target instanceof HTMLElement &&
-        mutation.addedNodes.length > 0
+        mutation.addedNodes.length > 0 &&
+        mutation.removedNodes.length == 0
       ) {
-        this.notifyListeners(mutation.target.id);
+        if (!mutation.target.className.includes("select2")) {
+          console.debug(mutation);
+        }
+        this.notifyListeners(mutation.target.id, mutation.target.className);
       }
     }
   }
 
-  private notifyListeners(id: string) {
-    const specificListeners = this.listeners[id];
+  private notifyListeners(id: string, className: string) {
+    const specificListeners =
+      this.listeners[`#${id}`] ?? this.listeners[`.${className}`];
     if (specificListeners) {
       specificListeners.forEach((listener) => listener());
     }

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { calculateMD5, callOpenAIRequest, loadData } from "../Utils";
+import DomEvent from "../DomEvent";
 
 const CACHE_EXPIRE_MILLIS = 1000 * 60 * 60 * 24 * 7; // 1 week
 const REQUEST_INTERVAL = 10000;
@@ -20,7 +21,7 @@ const INITIAL_EMOTION: Emotion = {
 
 const loadEmotion = async (): Promise<Emotion> => {
     const inputText = document
-        .querySelector("#leftCommentContent > p")
+        .querySelector("#leftCommentContent")
         ?.textContent?.trim();
     if (!inputText) {
         return INITIAL_EMOTION;
@@ -54,23 +55,30 @@ const updateSubmitButton = (e: Emotion) => {
     if (!buttons) {
         return;
     }
+    if (e == INITIAL_EMOTION) {
+        buttons.forEach((b) => {
+            const button = b as HTMLInputElement;
+            button.disabled = true;
+            button.textContent = "コメントを入力してください";
+        });
+    }
     if (e.anger > 5 || e.sadness > 5) {
         buttons.forEach((b) => {
             const button = b as HTMLInputElement;
-            button.textContent = "怒り・悲しみを抑えてコメントする";
             button.disabled = true;
+            button.textContent = "怒り・悲しみを抑えてコメントする";
         });
     } else if (e.joy < 2 && e.pleasure < 2) {
         buttons.forEach((b) => {
             const button = b as HTMLInputElement;
-            button.textContent = "喜び・楽しみを増やしてコメントする";
             button.disabled = true;
+            button.textContent = "喜び・楽しみを増やしてコメントする";
         });
     } else {
         buttons.forEach((b) => {
             const button = b as HTMLInputElement;
-            button.textContent = "登録";
             button.disabled = false;
+            button.textContent = "登録";
         });
     }
 };
@@ -90,16 +98,29 @@ const getClassName = (emotion: Emotion): string => {
 export const EmotionComponent = () => {
     const [emotion, setEmotion] = React.useState<Emotion>(INITIAL_EMOTION);
     React.useEffect(() => {
-        const update = () => {
+        // 初期表示
+        loadEmotion().then((e) => {
+            setEmotion(e);
+        });
+        // 入力エリアからフォーカスが外れたとき
+        document
+            .querySelector("#leftCommentContent")
+            ?.addEventListener("blur", (ev) => {
+                loadEmotion().then((e) => {
+                    setEmotion(e);
+                });
+            });
+        const ev = new DomEvent(
+            document.querySelector("#commentArea") as HTMLElement
+        );
+        // プレビュー表示時
+        ev.registerListener("#commentArea", () => {
             loadEmotion().then((e) => {
-                updateSubmitButton(e);
                 setEmotion(e);
             });
-        };
-        const timer = setInterval(update, REQUEST_INTERVAL);
-        // useEffectのクリーンアップ関数でタイマーをクリア
-        return () => clearInterval(timer);
+        });
     }, []);
+    updateSubmitButton(emotion);
     return (
         <div>
             <div className={`emotion-area ${getClassName(emotion)}`}>

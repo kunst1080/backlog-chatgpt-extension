@@ -31,7 +31,7 @@ const main = async () => {
     }
     const ev = new DomEvent(document.getElementById("root") as HTMLElement);
     if (config.enableSafeComment) {
-        ev.registerListener("leftCommentContent", () => {
+        ev.registerListener("#leftCommentContent", () => {
             addReactDom(
                 (e) =>
                     document
