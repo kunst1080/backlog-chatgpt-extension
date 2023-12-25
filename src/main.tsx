@@ -4,6 +4,7 @@ import DomEvent from "./DomEvent";
 import { SafeCommentComponent } from "./component/SafeCommentComponent";
 import Config from "./Config";
 import { IssueSummaryComponent } from "./component/IssueSummaryComponent";
+import { IssueTitleComponent } from "./component/IssueTitleComponent";
 
 const addReactDom = (
     nodeAppender: (node: Node) => void,
@@ -58,6 +59,23 @@ const main = async () => {
                             ?.after(e),
                     "issue-summary-component",
                     <IssueSummaryComponent />
+                );
+            });
+        }
+    }
+    if (config.enableIssueTitle) {
+        if (
+            location.pathname.startsWith("/view/") &&
+            location.pathname.endsWith("/edit")
+        ) {
+            ev.registerListener("#descriptionTextArea", () => {
+                addReactDom(
+                    (e) =>
+                        document
+                            .querySelector(".ticket__header")
+                            ?.appendChild(e),
+                    "issue-title-component",
+                    <IssueTitleComponent />
                 );
             });
         }

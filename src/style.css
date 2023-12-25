@@ -39,3 +39,12 @@
 .dark-mode #issue-summary-component {
     background-color: #8f49ff;
 }
+
+#issue-title-component {
+    position: absolute;
+    right: 0;
+}
+#issue-title-component button {
+    color: #fff;
+    background-color: #995cf9;
+}

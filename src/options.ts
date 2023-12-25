@@ -8,6 +8,9 @@ const enableSafeComment = <HTMLInputElement>(
 const enableIssueSummary = <HTMLInputElement>(
   document.getElementById("enable-issue-summary")
 );
+const enableIssueTitle = <HTMLInputElement>(
+  document.getElementById("enable-issue-title")
+);
 
 // 保存された設定を読み込む
 Config.load().then((config) => {
@@ -15,6 +18,7 @@ Config.load().then((config) => {
   spaceKey.value = config.spaceKey;
   enableSafeComment.checked = config.enableSafeComment;
   enableIssueSummary.checked = config.enableIssueSummary;
+  enableIssueTitle.checked = config.enableIssueTitle;
 });
 
 // 設定を保存する
@@ -26,7 +30,8 @@ document
       apiKey.value,
       spaceKey.value,
       enableSafeComment.checked,
-      enableIssueSummary.checked
+      enableIssueSummary.checked,
+      enableIssueTitle.checked
     ).save();
     console.log("設定が保存されました");
   });
