@@ -1,6 +1,7 @@
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
+  mode: "production",
   resolve: {
     extensions: [".js", ".ts", ".tsx"],
   },
