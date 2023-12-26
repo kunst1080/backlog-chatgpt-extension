@@ -30,24 +30,21 @@ ${inputText}
 
 export const IssueSummaryComponent = () => {
     const [aiSummary, setAISummary] = React.useState<string>("");
-    React.useEffect(() => {
-        // 初期表示
+    const onClick = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        ev.preventDefault();
         loadSummary().then((s) => {
             setAISummary(s);
         });
-        // 入力エリアからフォーカスが外れたとき
-        document
-            .querySelector("#descriptionTextArea")
-            ?.addEventListener("blur", (ev) => {
-                loadSummary().then((s) => {
-                    setAISummary(s);
-                });
-            });
-    }, []);
+    };
+    const clear = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        ev.preventDefault();
+        setAISummary("");
+    };
     return (
-        <div>
-            <h3>要約</h3>
+        <>
+            {!aiSummary && <button onClick={onClick}>要約する</button>}
+            {aiSummary && <button onClick={clear}>隠す</button>}
             <div>{aiSummary}</div>
-        </div>
+        </>
     );
 };
