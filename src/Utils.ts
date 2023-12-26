@@ -47,3 +47,17 @@ export const loadData = async <T>(
   });
   return cd;
 };
+
+export const triggerChangeEvent = (element: Node): void => {
+  const event = new Event("change", { bubbles: true });
+  element.dispatchEvent(event);
+};
+
+export const escapeHTML = (text: string): string => {
+  return text
+    .replace(/&/g, "&amp;") // アンパサンド
+    .replace(/</g, "&lt;") // 小なり記号
+    .replace(/>/g, "&gt;") // 大なり記号
+    .replace(/"/g, "&quot;") // 二重引用符
+    .replace(/'/g, "&#039;"); // 単引用符
+};

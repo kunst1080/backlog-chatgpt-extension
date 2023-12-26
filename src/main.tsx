@@ -5,17 +5,22 @@ import { SafeCommentComponent } from "./component/SafeCommentComponent";
 import Config from "./Config";
 import { IssueSummaryComponent } from "./component/IssueSummaryComponent";
 import { IssueTitleComponent } from "./component/IssueTitleComponent";
+import { IssueDescriptionComponent } from "./component/IssueDescriptionComponent";
 
 const addReactDom = (
     nodeAppender: (node: Node) => void,
     id: string,
-    component: JSX.Element
+    component: JSX.Element,
+    className?: string
 ) => {
     const e = document.createElement("div");
     if (document.getElementById(id)) {
         return;
     }
     e.id = id;
+    if (className) {
+        e.className = className;
+    }
     nodeAppender(e);
     ReactDOM.render(component, e);
     console.log(`Component rendered: ${id}`);
@@ -75,7 +80,26 @@ const main = async () => {
                             .querySelector(".ticket__header")
                             ?.appendChild(e),
                     "issue-title-component",
-                    <IssueTitleComponent />
+                    <IssueTitleComponent />,
+                    "ticket__header_component"
+                );
+            });
+        }
+    }
+    if (config.enableIssueDescription) {
+        if (
+            location.pathname.startsWith("/view/") &&
+            location.pathname.endsWith("/edit")
+        ) {
+            ev.registerListener("#descriptionTextArea", () => {
+                addReactDom(
+                    (e) =>
+                        document
+                            .querySelector(".ticket__header")
+                            ?.appendChild(e),
+                    "issue-description-component",
+                    <IssueDescriptionComponent />,
+                    "ticket__header_component"
                 );
             });
         }

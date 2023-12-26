@@ -4,19 +4,22 @@ class Config {
   readonly enableSafeComment: boolean;
   readonly enableIssueSummary: boolean;
   readonly enableIssueTitle: boolean;
+  readonly enableIssueDescription: boolean;
 
   constructor(
     apiKey: string,
     spaceKey: string,
     enableSafeComment: boolean,
     enableIssueSummary: boolean,
-    enableIssueTitle: boolean
+    enableIssueTitle: boolean,
+    enableIssueDescription: boolean
   ) {
     this.apiKey = apiKey;
     this.spaceKey = spaceKey;
     this.enableSafeComment = enableSafeComment;
     this.enableIssueSummary = enableIssueSummary;
     this.enableIssueTitle = enableIssueTitle;
+    this.enableIssueDescription = enableIssueDescription;
   }
 
   static load(): Promise<Config> {
@@ -28,6 +31,7 @@ class Config {
           "enableSafeComment",
           "enableIssueSummary",
           "enableIssueTitle",
+          "enableIssueDescription",
         ],
         (result) => {
           resolve(
@@ -36,7 +40,8 @@ class Config {
               result.spaceKey ?? "",
               result.enableSafeComment ?? false,
               result.enableIssueSummary ?? false,
-              result.enableIssueTitle ?? false
+              result.enableIssueTitle ?? false,
+              result.enableIssueDescription ?? false
             )
           );
         }
@@ -53,6 +58,7 @@ class Config {
           enableSafeComment: this.enableSafeComment,
           enableIssueSummary: this.enableIssueSummary,
           enableIssueTitle: this.enableIssueTitle,
+          enableIssueDescription: this.enableIssueDescription,
         },
         () => {
           resolve();
