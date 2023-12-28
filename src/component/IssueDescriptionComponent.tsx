@@ -22,7 +22,7 @@ async function onClick(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     if (!response) {
         window.alert("読み込みに失敗しました");
     }
-    const obj = JSON.parse(response.body);
+    const obj = JSON.parse(response);
     const res = obj.choices[0].text.trim();
     const lines = res
         .split("\n")

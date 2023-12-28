@@ -1,26 +1,32 @@
-import { OpenAIResponse } from "./Message";
+import Config from "./Config";
 import * as CryptoJS from "crypto-js";
 
-export const callOpenAIRequest = (
+export const callOpenAIRequest = async (
   prompt: string,
   maxTokens: number,
   temperature: number
-): Promise<OpenAIResponse> => {
+): Promise<string> => {
   console.log(`callOpenAIRequest: ${prompt}`);
-  return new Promise((resolve) => {
-    chrome.runtime.sendMessage(
-      {
-        type: "openai",
-        prompt: prompt,
-        maxTokens: maxTokens,
-        temperature: temperature,
-      },
-      (response: OpenAIResponse) => {
-        console.log(`OpenAIResponse: ${response.body}`);
-        resolve(response);
-      }
-    );
-  });
+
+  const data = {
+    model: "text-davinci-003",
+    prompt: prompt,
+    max_tokens: maxTokens,
+    temperature: temperature,
+  };
+  const config = await Config.load();
+  console.log("Request to OpenAI API");
+  console.log(data);
+  const responseBody = await fetch("https://api.openai.com/v1/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${config.apiKey}`,
+    },
+    body: JSON.stringify(data),
+  }).then((res) => res.text());
+  console.log(responseBody);
+  return responseBody;
 };
 
 export const calculateMD5 = (text: string): string => {

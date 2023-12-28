@@ -39,7 +39,7 @@ const loadEmotion = async (): Promise<Emotion> => {
     if (!response) {
         return INITIAL_EMOTION;
     }
-    const obj = JSON.parse(response.body);
+    const obj = JSON.parse(response);
     const arr = obj.choices[0].text.trim().split(",");
     return {
         joy: arr[0] ? parseInt(arr[0]) : 0,

@@ -6,7 +6,6 @@ module.exports = {
     extensions: [".js", ".ts", ".tsx"],
   },
   entry: {
-    background: "./src/background.ts",
     options: "./src/options.ts",
     main: "./src/main.tsx",
   },

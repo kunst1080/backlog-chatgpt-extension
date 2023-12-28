@@ -23,7 +23,7 @@ ${inputText}
     if (!response) {
         return "読み込みに失敗しました";
     }
-    const obj = JSON.parse(response.body);
+    const obj = JSON.parse(response);
     const res = obj.choices[0].text.trim();
     return res;
 };
